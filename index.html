@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bus Booking</title>
+  </head>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="app.js"></script>
+  <body>
+    <div style="width: 100%; display: flex; justify-content: center;">
+      <h1>Bus Booking</h1>
+    </div>
+    <div style="width: 100%; display: flex;">
+      <form style="flex: 1" name="busForm" action="javascript:void(0)" onsubmit="return handleFormSubmit()" method="post">
+          <label for="bus-name">Name:</label>
+          <input type="text" id="name" />
+          <br />
+          <label for="bus-email">Email:</label>
+          <input type="email" id="email" />
+          <br />
+          <label for="bus-phone">Phone:</label>
+          <input type="number" id="phone" />
+          <br />
+          <label for="bus-number">Car Number:</label>
+          <select id="bus-number">
+            <option value="Bus 1">Bus 1</option>
+            <option value="Bus 2">Bus 2</option>
+            <option value="Bus 3">Bus 3</option>
+          </select>
+          <br />
+          <input type='submit' value="Book"></input>
+      </form>
+      <div style="flex: 1">
+        <label for="filter">Filter: </label>
+        <select id="filter-select" onchange="handleFilteredList()" name="filter">
+          <option>All</option>
+          <option>Bus1</option>
+          <option>Bus2</option>
+          <option>Bus3</option>
+        </select>
+      </div>
+  </div>
+
+  <div id="booked_buses_list" name="booked_buses" style="margin-top:20px">
+  </div>
+  </body>
+</html>
