@@ -1,6 +1,3 @@
-console.log('this is app.js');
-console.log(document)
-
 
 const endpoint = 'https://crudcrud.com/api/cc42c2bd567c4f6db2ae0eba9584d9c4/bookings';
 
