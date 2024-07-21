@@ -2,13 +2,12 @@ console.log('this is app.js');
 console.log(document)
 
 
-const endpoint = 'https://crudcrud.com/api/4cef3d1b293c492e88c7502d9977b86c/bookings';
+const endpoint = 'https://crudcrud.com/api/cc42c2bd567c4f6db2ae0eba9584d9c4/bookings';
 
 
 // function handleFormSubmit(){
 
 // }
-let bookingId = 0;
 
 let bookings=[];
 
@@ -26,16 +25,13 @@ window.onload = ()=>{
 }
 
 const handleFormSubmit = ()=>{
-  const busOptions = ['Bus1', 'Bus2', 'Bus3'];
-
-  const name = document.getElementById('name')?.value;
+  
   const ele = document.getElementById('name');
 
-
+  const name = ele?.value;
   const email = document.getElementById('email')?.value;
   const phone = document.getElementById('phone')?.value;
-  const selectedBusIndex = document.getElementById('bus-number')?.selectedIndex;
-  const bus = busOptions[selectedBusIndex];
+  const bus = document.getElementById('bus-number').value;
 
   const alreadyBooked = ele.getAttribute('alreadybooked')??false;
   const alreadyBookedItemBookingId = ele.getAttribute('bookingId');
@@ -86,11 +82,9 @@ function deleteBus(id){
   
   axios.delete(`${endpoint}/${id}`)
   .then(res=>{
-    //fetch fresh list
-    axios.get(endpoint)
-    .then(res2=>{bookings = res2.data});    
-    console.log(bookings)
-    renderBusList(bookings);
+    const updatedBookings = bookings.filter(item=>item._id != id);
+    bookings = updatedBookings;
+    renderBusList(updatedBookings);
   })
   .catch(e=>console.error(e));
 }
@@ -98,20 +92,17 @@ function deleteBus(id){
 //edit bus event handler
 function editBus(id){
   console.log('edit bus with id ', id);
-  const optionsList = ['Bus1', 'Bus2', 'Bus3'];
-
   const bookingItem = bookings.find((item)=> item._id == id);
-  const busIndex = optionsList.indexOf(bookingItem.bus);
 
   const name = document.getElementById('name');
+
   name.value = bookingItem.name;
   name.setAttribute('alreadybooked', true);
   name.setAttribute('bookingid', id);
   
   document.getElementById('email').value = bookingItem.email;
   document.getElementById('phone').value = bookingItem.phone ;
-  document.getElementById('bus-number').selectedBusIndex = 
-  document.getElementById('bus-number').selectedIndex = busIndex;
+  document.getElementById('bus-number').value = bookingItem.bus;
 }
 
 
@@ -171,18 +162,3 @@ const handleFilteredList = ()=>{
   const filteredBookings = bookings.filter(item=>item.bus == filter);
   renderBusList(filteredBookings);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
